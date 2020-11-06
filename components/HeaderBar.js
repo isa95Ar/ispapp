@@ -1,19 +1,20 @@
 import React, {useState} from "react";
 import {Header, SearchBar} from "react-native-elements";
-import {StyleSheet, Text} from "react-native";
-import { View } from "react-native";
+import {StyleSheet} from "react-native";
 
+export default function HeaderBar(props){
 
-
-export default function HeaderBar(){
     return (
         <Header
             backgroundColor="brown"
             centerComponent={<Searcher />}
             centerContainerStyle={{flexGrow:5}}
             leftComponent={{ icon: "home", color: "#fff" }}
-            rightComponent={{ icon: "menu", color: "#fff" }}
-        />
+            rightComponent={{ 
+                icon: "menu", 
+                color: "#fff", 
+                onPress: () => props.nav.openDrawer() }}
+            />
     )}
 
     function Searcher(){
@@ -23,7 +24,6 @@ export default function HeaderBar(){
                 containerStyle={styles.search}    
                 inputStyle={{color:"#fff", alignSelf: "center"}}
                 onChangeText={text => setSearch(text)}
-                placeholder="Ingrese búsqueda..."
                 placeholderTextColor="#fff"
                 round
                 value={search}

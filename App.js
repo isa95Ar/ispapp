@@ -1,16 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import HeaderBar from "./components/HeaderBar";
+import {StyleSheet} from "react-native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
+import PublicacionesScreen from "./components/dummyScreen";
 
+const Drawer = createDrawerNavigator();
 
 export default function App() {
     return (
-        <View>
-            <HeaderBar />
-            <Text>Open up App.js to start working on your app!</Text>
-            <StatusBar style="auto" />
-        </View>
+        <NavigationContainer>
+            <Drawer.Navigator 
+                backBehavior="history"
+                drawerPosition="right"
+                initialRouteName="Publicaciones">
+
+                <Drawer.Screen name="Publicaciones" component={PublicacionesScreen} />
+                {/*<Drawer.Screen name="Calendario" component={CalendarioScreen} />
+                <Drawer.Screen name="Tareas" component={TareasScreen} />
+                <Drawer.Screen name="Notificaciones" component={NotificacionesScreen} />*/}
+            </Drawer.Navigator>
+        </NavigationContainer>
     );
 }
 
