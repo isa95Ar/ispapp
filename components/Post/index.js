@@ -1,5 +1,4 @@
 import React from "react";
-import { View } from "react-native";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 
@@ -28,7 +27,7 @@ export default function Post() {
     <View>
       {list.map((l, i) => (
         <ListItem key={i} bottomDivider>
-          <Avatar source={{ uri: l.banner }} style={styles.avatar} />
+          <Avatar source={{ uri: l.banner }} size="small" style={styles.avatar} />
           <ListItem.Content>
             <ListItem.Title>{l.title}</ListItem.Title>
             <ListItem.Subtitle style={styles.ratingText}>
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
   },
   avatar: {
-    width: 120,
-    height: 120,
+    width: 60,
+    height: 60,
   },
 });

@@ -1,22 +1,23 @@
-import React, {useState} from "react";
-import {Header, SearchBar} from "react-native-elements";
-import {StyleSheet} from "react-native";
+import React, { useState } from "react";
+import { Header, SearchBar } from "react-native-elements";
+import { StyleSheet } from "react-native";
 
-export default function HeaderBar(props){
+export default function HeaderBar({ nav }) {
+  return (
+    <Header
+      backgroundColor="brown"
+      centerContainerStyle={{ flexGrow: 5 }}
+      leftComponent={{ icon: "home", color: "#fff" }}
+      rightComponent={{
+        icon: "menu",
+        color: "#fff",
+        onPress: () => nav.openDrawer(),
+      }}
+    />
+  );
+}
 
-    return (
-        <Header
-            backgroundColor="brown"
-            centerComponent={<Searcher />}
-            centerContainerStyle={{flexGrow:5}}
-            leftComponent={{ icon: "home", color: "#fff" }}
-            rightComponent={{ 
-                icon: "menu", 
-                color: "#fff", 
-                onPress: () => props.nav.openDrawer() }}
-            />
-    )}
-
+/*
     function Searcher(){
         const [search, setSearch] = useState("");
         return (
@@ -30,15 +31,15 @@ export default function HeaderBar(props){
             />
         )
     }
-
-    const styles = StyleSheet.create({
-        search: {
-            alignItems: "center",
-            backgroundColor: "brown",
-            borderBottomColor: "brown",
-            borderTopColor: "brown",
-            flex: 1,
-            flexDirection: "row",
-            flexGrow: 1,
-        },
-    });
+*/
+const styles = StyleSheet.create({
+  search: {
+    alignItems: "center",
+    backgroundColor: "brown",
+    borderBottomColor: "brown",
+    borderTopColor: "brown",
+    flex: 1,
+    flexDirection: "row",
+    flexGrow: 1,
+  },
+});
