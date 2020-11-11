@@ -2,8 +2,8 @@ import React from 'react';
 import {StyleSheet} from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
-import PublicacionesScreen from "./components/dummyScreen";
 import TabMenu from './components/navigator/TabMenu';
+import CustomDrawer from "./components/navigator/CustomDrawer";
 
 const Drawer = createDrawerNavigator();
 
@@ -13,6 +13,7 @@ export default function App() {
             
             <Drawer.Navigator 
                 backBehavior="history"
+                drawerContent={CustomDrawer}
                 drawerPosition="right"
                 initialRouteName="Home">
 
