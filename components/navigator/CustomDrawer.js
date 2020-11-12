@@ -11,6 +11,7 @@ export default function CustomDrawerContent(props) {
     return (
         <DrawerContentScrollView {...props} style={styles.drawContent}>
             <View style={styles.container}>
+                
                 <ImageBackground
                         source={image}
                         style={styles.imagebckgrnd}>
