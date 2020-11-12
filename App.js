@@ -13,7 +13,7 @@ export default function App() {
             
             <Drawer.Navigator 
                 backBehavior="history"
-                drawerPosition="right"
+                drawerPosition="left"
                 initialRouteName="Home">
 
                 <Drawer.Screen name="Home" component={TabMenu} />
@@ -32,6 +32,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    NavigationContainer: {
+        flex: 1,
+        backgroundColor: 'black',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 });
 
 
