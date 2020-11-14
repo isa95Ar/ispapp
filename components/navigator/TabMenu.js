@@ -4,7 +4,9 @@ import { Text } from "react-native-elements";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import HeaderBar from "../HeaderBar";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Post from '../Post';
+import Calendario from '../Calendario';
 
 function Posts({ navigation }) {
   return (
@@ -28,7 +30,7 @@ function Calendar({ navigation }) {
   return (
     <View>
       <HeaderBar nav={navigation} />
-      <Text> Detalles de las tareas</Text>
+      <Calendario />
     </View>
   );
 }
@@ -41,9 +43,9 @@ export default function TabMenu() {
   return (
     <Tab.Navigator
       initialRouteName="Publicaciones"
-      activeColor="#f0edf6"
-      inactiveColor="gray-light"
-      barStyle={{ backgroundColor: "brown" }}
+      activeColor="#D6D6D6"
+      inactiveColor="#500000"
+      barStyle={{ backgroundColor: "#781713" }}
     >
       <Tab.Screen
         name="Posts"
@@ -51,17 +53,7 @@ export default function TabMenu() {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Calendar"
-        component={Calendar}
-        options={{
-          tabBarLabel: 'Updates',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={26} />
+            <MaterialIcons name="home" color={color} size={26} />
           ),
         }}
       />
@@ -69,9 +61,19 @@ export default function TabMenu() {
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Publicaciones',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <MaterialIcons name= 'dashboard' color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Calendar"
+        component={Calendar}
+        options={{
+          tabBarLabel: 'Calendario',
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name='event' color={color} size={26} />
           ),
         }}
       />

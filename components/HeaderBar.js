@@ -5,12 +5,12 @@ import { StyleSheet } from "react-native";
 export default function HeaderBar({ nav }) {
   return (
     <Header
-      backgroundColor="brown"
+      backgroundColor="#781713"
       centerContainerStyle={{ flexGrow: 5 }}
-      leftComponent={{ icon: "home", color: "#fff" }}
+      leftComponent={{ icon: "home", color: "#F5F5F5" }}
       rightComponent={{
         icon: "menu",
-        color: "#fff",
+        color: "#F5F5F5",
         onPress: () => nav.openDrawer(),
       }}
     />
