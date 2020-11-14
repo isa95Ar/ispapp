@@ -3,7 +3,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Avatar, Button, Text } from "react-native-elements";
 
-function Welcome() {
+export default function Welcome( {navigation} ) {
   return (
     <View style={styles.container}>
       <Avatar
@@ -20,16 +20,24 @@ function Welcome() {
       <Text h2 style={{ color: "white" }}>
         "Usuario"
       </Text>
-      <View style={stylesButton.container}>
+      <View style={{ width: "70%", height: "100%", backgroundColor: "#6C0000", alignItems:"flex-start", flexDirection:"column-reverse", flex: 1}}>
         <Button
           title="Deslogearse"
           titleStyle={{ color: "white" }}
           buttonStyle={{ backgroundColor: "#6C0000" }}
+          onPress={() => {
+            navigation.navigate("Login");
+          }}
         />
+        </View>
+        <View style={{ width: "70%", height: "80%", backgroundColor: "#6C0000", alignItems:"flex-end", flexDirection:"column", flex: 1 }}>
         <Button
           title="Continuar"
           titleStyle={{ color: "white" }}
           buttonStyle={{ backgroundColor: "#6C0000" }}
+          onPress={() => {
+            navigation.navigate("Home");
+          }}
         />
       </View>
     </View>
@@ -38,21 +46,14 @@ function Welcome() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 3,
+    width: "100%",
+    height: "100%",
     backgroundColor: "#6C0000",
     alignItems: "center",
     justifyContent: "center",
   },
 });
 
-const stylesButton = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#6C0000",
-    alignItems: "flex-end",
-    justifyContent: "flex-end",
-    flexDirection: "row",
-  },
-});
 
-export default Welcome;
+

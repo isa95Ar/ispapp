@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { Avatar, Input, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-function Login() {
+export default function Login({ navigation }) {
   return (
     <View style={styles.container}>
       <Avatar
@@ -28,6 +28,9 @@ function Login() {
         title="Entrar"
         titleStyle={{ color: "#6C0000" }}
         buttonStyle={{ backgroundColor: "white" }}
+        onPress={() => {
+          navigation.navigate("Welcome");
+        }}
       />
     </View>
   );
@@ -42,4 +45,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;

@@ -3,7 +3,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Avatar } from "react-native-elements";
 
-function Inicio() {
+export default function Inicio() {
   return (
     <View style={styles.container}>
       <Avatar
@@ -27,4 +27,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Inicio;
