@@ -15,12 +15,16 @@ export default function App() {
 
             <Drawer.Navigator
                 backBehavior="history"
-                drawerContent={CustomDrawer}
                 drawerPosition="right"
-                initialRouteName="Login">
-                <Drawer.Screen name="Login" component={Login} />
-                <Drawer.Screen name="Welcome" component={Welcome} />
-                <Drawer.Screen name="Home" component={TabMenu} />
+                initialRouteName="Login"
+                drawerContent={CustomDrawer}
+                drawerContentOptions ={{
+                    activeTintColor:"#F57273",
+                    contentContainerStyle:{height:"100%",width:"100%",backgroundColor:"brown"}}}
+                >
+                <Drawer.Screen name="Login" component={Login} options={{headerShown:false}} />
+                <Drawer.Screen name="Welcome" component={Welcome} options={{headerShown:false}} />
+                <Drawer.Screen name="Home" component={TabMenu} options={{headerShown:false}}/>
                 {/*<Drawer.Screen name="Calendario" component={CalendarioScreen} />
                 <Drawer.Screen name="Tareas" component={TareasScreen} />
                 <Drawer.Screen name="Notificaciones" component={NotificacionesScreen} />*/}

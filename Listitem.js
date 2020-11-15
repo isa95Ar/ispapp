@@ -16,7 +16,7 @@ export default function App() {
   const list = [
   {
     title: 'Tarea hacer esto',
-    avatar_url: 'https://cdn.discordapp.com/attachments/768624853556133910/773700199985446932/unknown.png',
+    avatar_url: "https://cdn.discordapp.com/attachments/768624853556133910/773700199985446932/unknown.png",
     tags: 'Vice President',
     date: 'aa'
   },
@@ -32,7 +32,7 @@ export default function App() {
   {
     list.map((l, i) => (
       <ListItem key={i} bottomDivider>
-        <Avatar source={{uri: l.avatar_url}} />
+        <Avatar source={{uri: "https://cdn.discordapp.com/attachments/768624853556133910/773700160781549608/unknown.png"}} />
         <ListItem.Content>
           <ListItem.Title>{l.title}</ListItem.Title>
           <ListItem.Subtitle>{l.tags}</ListItem.Subtitle>

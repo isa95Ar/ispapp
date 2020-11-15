@@ -11,7 +11,7 @@ export default function Inicio() {
         rounded
         source={{
           uri:
-            "https://cdn.discordapp.com/attachments/757361195425726585/773705725788553226/InstitutoLogo.png",
+            "https://cdn.discordapp.com/attachments/757361195425726585/773705725788553226/InstitutoLogo.png"
         }}
       />
     </View>

@@ -26,9 +26,10 @@ export default function Post() {
   return (
     <View>
       {list.map((l, i) => (
-        <ListItem key={i} bottomDivider>
-          <Avatar source={{ uri: l.banner }} size="small" style={styles.avatar} />
-          <ListItem.Content>
+        <ListItem key={i} bottomDivider pad={30}>
+          <Avatar
+          source={{ uri:  "https://cdn.discordapp.com/attachments/768624853556133910/773700160781549608/unknown.png" }} size="small" style={styles.avatar} />
+          <ListItem.Content >
             <ListItem.Title>{l.title}</ListItem.Title>
             <ListItem.Subtitle style={styles.ratingText}>
               <Text style={{ color: "red" }}>{l.type}</Text>
@@ -37,6 +38,7 @@ export default function Post() {
             </ListItem.Subtitle>
             <ListItem.Subtitle>{l.date}</ListItem.Subtitle>
           </ListItem.Content>
+          <ListItem.Chevron />
         </ListItem>
       ))}
     </View>

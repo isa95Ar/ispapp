@@ -1,18 +1,18 @@
 /* Author: Maximiliano Fiorito, Fecha: 21/10/2020, Institucion: ISP*/
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View,ImageBackground } from "react-native";
 import { Avatar, Button, Text } from "react-native-elements";
 
 export default function Welcome({ navigation }) {
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require("../../assets/bg-app.png")} style={styles.container}>
       <View style={styles.containerHeader}>
         <Avatar
           size="xlarge"
           rounded
           source={{
             uri:
-              "https://cdn.discordapp.com/attachments/757361195425726585/773705725788553226/InstitutoLogo.png",
+              "https://cdn.discordapp.com/attachments/757361195425726585/773705725788553226/InstitutoLogo.png"
           }}
         />
       </View>
@@ -30,7 +30,7 @@ export default function Welcome({ navigation }) {
         <Button
           title="Deslogearse"
           titleStyle={{ color: "white" }}
-          buttonStyle={{ backgroundColor: "#6C0000" }}
+          buttonStyle={{ backgroundColor: "rgba(121, 1, 2, 0.1)" }}
           onPress={() => {
             navigation.navigate("Login");
           }}
@@ -38,13 +38,13 @@ export default function Welcome({ navigation }) {
         <Button
           title="Continuar"
           titleStyle={{ color: "white" }}
-          buttonStyle={{ backgroundColor: "#6C0000" }}
+          buttonStyle={{ backgroundColor: "rgba(121, 1, 2, 0.1)" }}
           onPress={() => {
             navigation.navigate("Home");
           }}
         />
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     flexDirection :"row",
     alignContent : "center",
     alignItems:"center",
-    justifyContent :"space-between",
+    justifyContent :"space-around",
 
   }
 });
