@@ -1,54 +1,48 @@
 import React from "react";
 import { StyleSheet, View, Text, ScrollView, Image } from "react-native";
-
+import { useState, useEffect } from "react"
 import { FlatGrid, SectionGrid } from 'react-native-super-grid';;
 
 export default function Calendar() {
-    
-  const [items, setItems] = React.useState([
-    { date:'22-02 19hs', materia:'DS', name: 'FINAL', codeColor: '#4169E1',id:1 },
-    { date:'24-02 18hs', materia:'AOC', name: 'FINAL', codeColor: '#FFD700',id:2 },
-    { date:'01-03 17hs', materia:'PP', name: 'PARCIAL', codeColor: '#9ACD32',id:3 },
-    { date:'02-03 17hs', materia:'BD1', name: 'PARCIAL', codeColor: '#DC143C',id:4 },
-    { date:'04-03 19hs', materia:'PP', name: 'FINAL', codeColor: '#9ACD32',id:5  },
-    { date:'06-03 19hs', materia:'DS', name: 'TALLER', codeColor: '#4169E1',id:6  },
-    { date:'12-03 20hs', materia:'PP', name: 'REUNION', codeColor: '#9ACD32' ,id:7 },
-    { date:'24-03 19hs', materia:'BD1', name: 'PARCIAL', codeColor: '#DC143C',id:8  },
-    { date:'03-04 19hs', materia:'DS', name: 'FINAL', codeColor: '#4169E1',id:9  },
-    { date:'07-04 18hs', materia:'AOC', name: 'FINAL', codeColor: '#FFD700' ,id:10 },
-    { date:'12-04 20hs', materia:'PP', name: 'REUNION', codeColor: '#9ACD32',id:11  },
-    { date:'21-04 18hs', materia:'BD1', name: 'FINAL', codeColor: '#DC143C',id:12  },
-    { date:'09-05 22hs', materia:'DS', name: 'PARCIAL', codeColor: '#4169E1',id:13  },
-    { date:'10-05 20hs', materia:'BD1', name: 'PARCIAL', codeColor: '#DC143C',id:14  },
-    { date:'25-05 17hs', materia:'PP', name: 'FINAL', codeColor: '#9ACD32',id:15  },
-    { date:'06-06 18hs', materia:'DS', name: 'FINAL', codeColor: '#4169E1',id:16  },
-    { date:'01-07 19hs', materia:'AOC', name: 'FINAL', codeColor: '#FFD700',id:17  },
-    { date:'03-07 19hs', materia:'PP', name: 'FINAL', codeColor: '#9ACD32',id:18  },
-    { date:'06-07 18hs', materia:'BD', name: 'FINAL', codeColor: '#DC143C' ,id:19 },
-  ]);
+
+  const [info, setInfo] = useState([]);
+
+  useEffect(() => {
+    calendarApi();
+  }, []);
+
+  const calendarApi = async () => {
+    try {
+      const data = await fetch('http://backend.institutopatagonico.edu.ar/api/calendars', {
+        method: 'GET',
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iYWNrZW5kLmluc3RpdHV0b3BhdGFnb25pY28uZWR1LmFyXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjA1NjU0ODAzLCJleHAiOjE2MzY3OTQ4MDMsIm5iZiI6MTYwNTY1NDgwMywianRpIjoiS2tMcjhMT25jdU1rYUdjQiIsInN1YiI6MTIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.1axegnJrk4QpQqp1wHUmYVIGSTUta1Zg5y3M1acWJMI"
+        },
+      });
+      let response = await data.json();
+      setInfo(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <ScrollView>
-    
+
       <FlatGrid
         itemDimension={130}
-        data={items}
+        data={info}
         style={styles.gridView}
         spacing={10}
         renderItem={({ item }) => (
           <View key={item.id} style={[styles.itemContainer, { backgroundColor: item.codeColor }]}>
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.itemCode}>{item.materia}</Text>
-            <Text style={styles.itemDate}>{item.date}</Text>
+            <Text style={styles.itemName}>{item.date}-                      -                         
+            {item.type}</Text>
           </View>
         )}
       />
-      <View>
-        <Image
-          source ={{ uri: "https://i.ibb.co/CKY7m5X/awesome.png" }}
-          style={{width:400, height: 400, backgroundColor:'#ECECEC'}}
-        />
-      </View>
 
     </ScrollView>
   );
@@ -71,16 +65,16 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '600',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: {width: -1, height: 1},
+    textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 5
-    
+
   },
   itemCode: {
     fontWeight: '600',
     fontSize: 18,
     color: '#fff',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: {width: -1, height: 1},
+    textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 5
   },
   itemDate: {
@@ -88,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#fff',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: {width: -1, height: 1},
+    textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 5
   },
 });
