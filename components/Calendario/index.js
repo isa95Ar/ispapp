@@ -22,7 +22,18 @@ export default function Calendar() {
         },
       });
       let response = await data.json();
-      setInfo(response.data);
+      const dataComponent = []
+      response.data.map((item) => {
+        const Objeto = {
+          id: item.id,
+          date: item.date,
+          materia: "",
+          name: item.type,
+          codeColor: "Red"
+        }
+        dataComponent.push(Objeto);
+        setInfo(dataComponent);
+      })
     } catch (error) {
       console.log(error);
     }
@@ -38,8 +49,8 @@ export default function Calendar() {
         spacing={10}
         renderItem={({ item }) => (
           <View key={item.id} style={[styles.itemContainer, { backgroundColor: item.codeColor }]}>
-            <Text style={styles.itemName}>{item.date}-                      -                         
-            {item.type}</Text>
+            <Text style={styles.itemName}>{item.date}-                      -
+            {item.name}</Text>
           </View>
         )}
       />
