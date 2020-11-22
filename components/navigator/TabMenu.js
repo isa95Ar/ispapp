@@ -6,13 +6,13 @@ import HeaderBar from "../HeaderBar";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Calendario from '../Calendario';
-import Homes from '../Home';
+import Home from '../Home';
 
-function Home({ navigation }) {
+function Homes({ navigation }) {
   return (
     <View>
       <HeaderBar nav={navigation} />
-       <Homes />
+       <Home />
     </View>
   );
 }
@@ -49,7 +49,7 @@ export default function TabMenu() {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={Homes}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (

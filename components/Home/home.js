@@ -13,7 +13,7 @@ export default function Homes() {
 
     try{
 
-      const data = await fetch('http://backend.institutopatagonico.edu.ar/api/posts',{
+      const data = await fetch('http://backend.institutopatagonico.edu.ar/api/home',{
          method: 'GET',
          headers: {
           Accept: "application/json",
