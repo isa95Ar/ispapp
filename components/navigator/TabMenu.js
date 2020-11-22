@@ -8,11 +8,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Post from '../Post';
 import Calendario from '../Calendario';
 
-function Posts({ navigation }) {
+function Home({ navigation }) {
   return (
     <View>
       <HeaderBar nav={navigation} />
-       <Post />
+       <Home />
     </View>
   );
 }
@@ -48,7 +48,7 @@ export default function TabMenu() {
       barStyle={{ backgroundColor: "#781713" }}
     >
       <Tab.Screen
-        name="Posts"
+        name="Home"
         component={Posts}
         options={{
           tabBarLabel: 'Home',
