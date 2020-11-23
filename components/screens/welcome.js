@@ -2,8 +2,11 @@
 import React from "react";
 import { StyleSheet, View,ImageBackground } from "react-native";
 import { Avatar, Button, Text } from "react-native-elements";
+import { useSelector,useDispatch } from "react-redux";
 
 export default function Welcome({ navigation }) {
+  const user = useSelector((state) => state.user);
+
   return (
     <ImageBackground source={require("../../assets/bg-app.png")} style={styles.container}>
       <View style={styles.containerHeader}>
@@ -21,7 +24,7 @@ export default function Welcome({ navigation }) {
           ¡Bienvenido!
         </Text>
         <Text h2 style={{ color: "white" }}>
-          Maximiliano Fiorito
+          {user.name}
         </Text>
       </View>
       <View

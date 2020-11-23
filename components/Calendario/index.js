@@ -27,9 +27,8 @@ export default function Calendar() {
         const Objeto = {
           id: item.id,
           date: item.date,
-          materia: "",
           name: item.type,
-          codeColor: "Red"
+          codeColor: "black"
         }
         dataComponent.push(Objeto);
         setInfo(dataComponent);
@@ -49,8 +48,8 @@ export default function Calendar() {
         spacing={10}
         renderItem={({ item }) => (
           <View key={item.id} style={[styles.itemContainer, { backgroundColor: item.codeColor }]}>
-            <Text style={styles.itemName}>{item.date}-                      -
-            {item.name}</Text>
+            <Text style={styles.itemName}>{item.name}</Text>
+            <Text style={styles.itemDate}>{item.date}</Text>
           </View>
         )}
       />

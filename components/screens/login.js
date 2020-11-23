@@ -21,7 +21,6 @@ export default function Login({ navigation }) {
   useEffect(() => {
     console.log("Nuevo State",user);
   },[user]);
-  
 
   const login = async () => {
     try {
@@ -36,15 +35,19 @@ export default function Login({ navigation }) {
           body: JSON.stringify({ email: email, password: password }),
         }
       );
-
+     
       let response = await data.json();
-      
+  
       dispatch(updateUser(response.user))
-      
     } catch (e) {
       console.log('error lol',e);
     }
+    console.log(email,password,user.name)
+    if(user.email == email){
+      navigation.navigate("Welcome");
+    }
   };
+
 
   return (
     <ImageBackground
@@ -84,9 +87,7 @@ export default function Login({ navigation }) {
           title="Entrar"
           titleStyle={{ color: "#6C0000", paddingHorizontal: 80 }}
           buttonStyle={{ backgroundColor: "white" }}
-          onPress={() => {
-            navigation.navigate("Welcome");
-            //login();
+          onPress={() => {login()
           }}
         />
       </View>

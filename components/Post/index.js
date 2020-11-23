@@ -2,13 +2,8 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 
+
 export default function Post() {
- 
-
-  
-  const [list,setList] = useState([]);
-
-
   const apiCall = async () => {
 
     try{
@@ -29,21 +24,33 @@ export default function Post() {
     }catch(e){
       console.log(e);
     }
-
   }
-
   useEffect(() => {
        apiCall();
   },[]);
   
+  const [lists,setList] = useState([1]);
 
+  const list = [
+    {
+      title: 'Tarea para el martes',
+      banner: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+      type: 'Tarea',
+      career_id: 'Laboratorio',
+    },
+    {
+      title: 'Chris Jackson',
+      banner: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      type: 'Vice Chairman',
+      career_id: '',
+    },
+  ]
 
   return (
     <View>
       {list.map((l, i) => (
         <ListItem key={i} bottomDivider pad={30}>
-          <Avatar
-          source={{ uri:  l.banner }} size="small" style={styles.avatar} />
+          <Avatar source={{ uri: l.banner }} size="small" style={styles.avatar} />
           <ListItem.Content >
             <ListItem.Title>{l.title}</ListItem.Title>
             <ListItem.Subtitle style={styles.ratingText}>
