@@ -35,16 +35,13 @@ export default function Login({ navigation }) {
           body: JSON.stringify({ email: email, password: password }),
         }
       );
-     
       let response = await data.json();
-  
-      dispatch(updateUser(response.user))
+      if (response.access_token !== undefined){
+        dispatch(updateUser(response.user));
+        navigation.navigate("Welcome");
+      }
     } catch (e) {
       console.log('error lol',e);
-    }
-    console.log(email,password,user.name)
-    if(user.email == email){
-      navigation.navigate("Welcome");
     }
   };
 
@@ -71,12 +68,14 @@ export default function Login({ navigation }) {
         <Input
           placeholder="Usuario"
           placeholderTextColor="white"
+          inputStyle={{color: "#fff"}}
           onChangeText={(value) => setEmail(value)}
           leftIcon={<Icon name="user" size={24} color="white" />}
         />
         <Input
           placeholder="Contraseña"
           placeholderTextColor="white"
+          inputStyle={{color: "#fff"}}
           secureTextEntry={true}
           onChangeText={(value) => setPassword(value)}
           leftIcon={<Icon name="lock" size={24} color="white" />}
@@ -87,8 +86,7 @@ export default function Login({ navigation }) {
           title="Entrar"
           titleStyle={{ color: "#6C0000", paddingHorizontal: 80 }}
           buttonStyle={{ backgroundColor: "white" }}
-          onPress={() => {login()
-          }}
+          onPress={() => {login()}}
         />
       </View>
     </ImageBackground>
