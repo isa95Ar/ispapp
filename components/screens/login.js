@@ -1,11 +1,11 @@
 /* Author: Maximiliano Fiorito, Fecha: 21/10/2020, Institucion: ISP*/
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet, View, Text } from "react-native";
 import { Avatar, Input, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useSelector,useDispatch } from "react-redux";
 import {updateUser} from '../../actions/user';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
@@ -13,14 +13,35 @@ export default function Login({ navigation }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
-    console.log("state vacio ",user);
+    checkSession();
   },[]);
 
-  useEffect(() => {
-    console.log("Nuevo State",user);
-  },[user]);
+  const checkSession = async () => {
+    try {
+      const token = await AsyncStorage.getItem("session")
+      if(token !== null) {
+        const data = await fetch(
+          "http://backend.institutopatagonico.edu.ar/api/authenticateduser",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            }, 
+          }
+        );
+        let response = await data.json();
+        if (response.status === undefined){
+          dispatch(updateUser(response));
+          navigation.navigate("Welcome");
+        }
+      }
+    } catch(e) {
+      console.log("Error getting local store");
+    }
+  }
 
   const login = async () => {
     try {
@@ -37,6 +58,7 @@ export default function Login({ navigation }) {
       );
       let response = await data.json();
       if (response.access_token !== undefined){
+        await AsyncStorage.setItem("session", response.access_token);
         dispatch(updateUser(response.user));
         navigation.navigate("Welcome");
       }
@@ -44,7 +66,6 @@ export default function Login({ navigation }) {
       console.log('error lol',e);
     }
   };
-
 
   return (
     <ImageBackground
