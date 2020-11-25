@@ -35,6 +35,7 @@ export default function Login({ navigation }) {
         let response = await data.json();
         if (response.status === undefined){
           dispatch(updateUser(response));
+          console.log(token)
           navigation.navigate("Welcome");
         }
       }
