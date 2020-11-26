@@ -9,11 +9,8 @@ export default function Welcome({ navigation }) {
   const user = useSelector((state) => state.user);
 
   const loggedOut = async () => {
-      const token = await AsyncStorage.getItem("session")
-      if (token !== null){
-        const token = await AsyncStorage.removeItem("session")
+        await AsyncStorage.removeItem("session")
         navigation.navigate("Login");
-      }
   }
   
   return (
