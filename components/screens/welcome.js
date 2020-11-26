@@ -2,23 +2,19 @@
 import React from "react";
 import { StyleSheet, View,ImageBackground } from "react-native";
 import { Avatar, Button, Text } from "react-native-elements";
-import { useSelector,useDispatch } from "react-redux";
-import {logout} from '../../actions/user';
+import { useSelector } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Welcome({ navigation }) {
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
 
   const loggedOut = async () => {
       const token = await AsyncStorage.getItem("session")
       if (token !== null){
         const token = await AsyncStorage.removeItem("session")
-        console.log(token)
         navigation.navigate("Login");
       }
   }
-
   
   return (
     <ImageBackground source={require("../../assets/bg-app.png")} style={styles.container}>
