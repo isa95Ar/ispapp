@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+/*import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 
@@ -75,3 +75,4 @@ const styles = StyleSheet.create({
     height: 60,
   },
 });
+*/

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 
-export default function Homes() {
+export default function Home() {
  
 
   
