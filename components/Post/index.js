@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
-import { ListItem, Avatar } from "react-native-elements";
+import { ListItem, Avatar, Button } from "react-native-elements";
+import RNPickerSelect from 'react-native-picker-select';
 
 export default function Post() {
  
 
-  
+  var value= 'Consigna';
   const [list,setList] = useState([]);
 
 
@@ -13,7 +14,7 @@ export default function Post() {
 
     try{
 
-      const data = await fetch('http://backend.institutopatagonico.edu.ar/api/posts',{
+      const data = await fetch(`http://backend.institutopatagonico.edu.ar/api/posts?page=1&type=${value}`,{
          method: 'GET',
          headers: {
           Accept: "application/json",
@@ -23,23 +24,28 @@ export default function Post() {
       });
 
       let response = await data.json();
-      
-      setList(response.data);
-
+      console.log(response)
+      setList(response);
     }catch(e){
       console.log(e);
     }
-
   }
-
   useEffect(() => {
        apiCall();
   },[]);
-  
+/* El collapsable -> llama a una funcion con setlist para actualizar la lista*/
 
 
   return (
     <View>
+      <RNPickerSelect
+            onValueChange={(value) => console.log(value)} /*el value tiene que salir de aca a el codigo*/
+            items={[
+                { label: 'Consigna', value: 'Consigna' },
+                { label: 'Tarea', value: 'Tarea' },
+                { label: 'Aviso', value: 'Aviso' },
+            ]}
+        />
       {list.map((l, i) => (
         <ListItem key={i} bottomDivider pad={30}>
           <Avatar
@@ -56,6 +62,9 @@ export default function Post() {
           <ListItem.Chevron />
         </ListItem>
       ))}
+    <Button /*Implementar flex y una variable que salga fuera como el dropdown*/
+  title="ver mas"
+  /> 
     </View>
   );
 }

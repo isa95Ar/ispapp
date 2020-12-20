@@ -58,8 +58,8 @@ export default function TabMenu() {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="Post"
+        component={Posts}
         options={{
           tabBarLabel: 'Publicaciones',
           tabBarIcon: ({ color }) => (
