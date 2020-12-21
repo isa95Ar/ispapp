@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { SectionList } from "react-native";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { ListItem, Avatar, Button } from "react-native-elements";
 import RNPickerSelect from 'react-native-picker-select';
@@ -6,7 +7,7 @@ import RNPickerSelect from 'react-native-picker-select';
 export default function Post() {
  
 
-  var value= 'Consigna';
+  const [valor, setValor] = useState(["Aviso"])
   const [list,setList] = useState([]);
 
 
@@ -14,7 +15,7 @@ export default function Post() {
 
     try{
 
-      const data = await fetch(`http://backend.institutopatagonico.edu.ar/api/posts?page=1&type=${value}`,{
+      const data = await fetch(`http://backend.institutopatagonico.edu.ar/api/posts?page=1&type=${valor}`,{
          method: 'GET',
          headers: {
           Accept: "application/json",
@@ -35,16 +36,18 @@ export default function Post() {
   },[]);
 /* El collapsable -> llama a una funcion con setlist para actualizar la lista*/
 
-
   return (
     <View>
-      <RNPickerSelect
-            onValueChange={(value) => console.log(value)} /*el value tiene que salir de aca a el codigo*/
+      <RNPickerSelect 
             items={[
                 { label: 'Consigna', value: 'Consigna' },
                 { label: 'Tarea', value: 'Tarea' },
                 { label: 'Aviso', value: 'Aviso' },
             ]}
+            onValueChange={(value) => setValor(value)} 
+        />
+        <Button
+        onPress={() => apiCall()}
         />
       {list.map((l, i) => (
         <ListItem key={i} bottomDivider pad={30}>
