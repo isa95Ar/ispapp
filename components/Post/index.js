@@ -7,15 +7,16 @@ import RNPickerSelect from 'react-native-picker-select';
 export default function Post() {
  
 
-  const [valor, setValor] = useState(["Aviso"])
-  const [list,setList] = useState([]);
+  const [valor, setValor] = useState(["Aviso"]);
+  const [list, setList] = useState([]);
+  const [page, setPage] = useState(1);
 
 
   const apiCall = async () => {
 
     try{
 
-      const data = await fetch(`http://backend.institutopatagonico.edu.ar/api/posts?page=1&type=${valor}`,{
+      const data = await fetch(`http://backend.institutopatagonico.edu.ar/api/posts?page=${page}&type=${valor}`,{
          method: 'GET',
          headers: {
           Accept: "application/json",
@@ -31,11 +32,26 @@ export default function Post() {
       console.log(e);
     }
   }
-  useEffect(() => {
-       apiCall();
-  },[]);
-/* El collapsable -> llama a una funcion con setlist para actualizar la lista*/
+  const Pages = () => {
+    if (page < 1) {
+      setPage(1)
+    }
+  }
 
+  useEffect(() => {
+    apiCall();
+  }, []);
+
+  useEffect(() => {
+    apiCall();
+    setPage(1);
+  }, [valor]);
+
+  useEffect(() => {
+    apiCall();
+    Pages();
+  }, [page]);
+  
   return (
     <View>
       <RNPickerSelect 
@@ -44,10 +60,7 @@ export default function Post() {
                 { label: 'Tarea', value: 'Tarea' },
                 { label: 'Aviso', value: 'Aviso' },
             ]}
-            onValueChange={(value) => setValor(value)} 
-        />
-        <Button
-        onPress={() => apiCall()}
+            onValueChange={(value) => setValor(value)}     
         />
       {list.map((l, i) => (
         <ListItem key={i} bottomDivider pad={30}>
@@ -68,8 +81,20 @@ export default function Post() {
     <Button /*Implementar flex y una variable que salga fuera como el dropdown*/
   title="ver mas"
   /> 
+  <View style={styles.buttons}>
+        <Button
+          onPress={() => setPage(page - 1)}
+          title="Anterior Página"
+        />
+        <Button
+          onPress={() => setPage(page + 1)}
+          title="Siguiente Página"
+        />
+      </View>
     </View>
+  
   );
+
 }
 
 const styles = StyleSheet.create({
@@ -86,4 +111,10 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+  buttons: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  }
 });
