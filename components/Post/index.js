@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { SectionList } from "react-native";
 import { StyleSheet, View, Text, Image } from "react-native";
-import { ListItem, Avatar } from "react-native-elements";
+import { ListItem, Avatar, Button } from "react-native-elements";
+import RNPickerSelect from 'react-native-picker-select';
 
 
+ 
 export default function Post() {
+  const [valor, setValor] = useState(["Aviso"]);
+  const [list, setList] = useState([]);
+  const [page, setPage] = useState(1);
+
   const apiCall = async () => {
 
     try{
 
-      const data = await fetch('http://backend.institutopatagonico.edu.ar/api/posts',{
+      const data = await fetch(`http://backend.institutopatagonico.edu.ar/api/posts?page=${page}&type=${valor}`,{
          method: 'GET',
          headers: {
           Accept: "application/json",
@@ -18,36 +25,41 @@ export default function Post() {
       });
 
       let response = await data.json();
-      
-      setList(response.data);
-
+      console.log(response)
+      setList(response);
     }catch(e){
       console.log(e);
     }
   }
+  const Pages = () => {
+    if (page < 1) {
+      setPage(1)
+    }
+  }
   useEffect(() => {
-       apiCall();
-  },[]);
+    apiCall();
+  }, []);
+
+  useEffect(() => {
+    apiCall();
+    setPage(1);
+  }, [valor]);
+
+  useEffect(() => {
+    apiCall();
+    Pages();
+  }, [page]);
   
-  const [lists,setList] = useState([1]);
-
-  const list = [
-    {
-      title: 'Tarea para el martes',
-      banner: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-      type: 'Tarea',
-      career_id: 'Laboratorio',
-    },
-    {
-      title: 'Chris Jackson',
-      banner: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-      type: 'Vice Chairman',
-      career_id: '',
-    },
-  ]
-
   return (
     <View>
+      <RNPickerSelect 
+            items={[
+                { label: 'Consigna', value: 'Consigna' },
+                { label: 'Tarea', value: 'Tarea' },
+                { label: 'Aviso', value: 'Aviso' },
+            ]}
+            onValueChange={(value) => setValor(value)}     
+        />
       {list.map((l, i) => (
         <ListItem key={i} bottomDivider pad={30}>
           <Avatar source={{ uri: l.banner }} size="small" style={styles.avatar} />
@@ -63,8 +75,23 @@ export default function Post() {
           <ListItem.Chevron />
         </ListItem>
       ))}
+    <Button /*Implementar flex y una variable que salga fuera como el dropdown*/
+  title="ver mas"
+  /> 
+  <View style={styles.buttons}>
+        <Button
+          onPress={() => setPage(page - 1)}
+          title="Anterior Página"
+        />
+        <Button
+          onPress={() => setPage(page + 1)}
+          title="Siguiente Página"
+        />
+      </View>
     </View>
+  
   );
+
 }
 
 const styles = StyleSheet.create({
@@ -81,4 +108,10 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+  buttons: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  }
 });
