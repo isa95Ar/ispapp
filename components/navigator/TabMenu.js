@@ -6,7 +6,8 @@ import HeaderBar from "../HeaderBar";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Calendario from '../Calendario';
-import Home from '../Home/Home';
+import Home from '../Home/home';
+import Posts from '../Post';
 
 function Homes({ navigation }) {
   return (
