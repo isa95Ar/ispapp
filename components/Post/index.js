@@ -4,8 +4,6 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import { ListItem, Avatar, Button } from "react-native-elements";
 import RNPickerSelect from 'react-native-picker-select';
 
-
- 
 export default function Post() {
   const [valor, setValor] = useState(["Aviso"]);
   const [list, setList] = useState([]);

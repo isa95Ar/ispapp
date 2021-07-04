@@ -5,14 +5,14 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import HeaderBar from "../HeaderBar";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Post from '../Post';
 import Calendario from '../Calendario';
+import Home from '../Home/Home';
 
-function Posts({ navigation }) {
+function Homes({ navigation }) {
   return (
     <View>
       <HeaderBar nav={navigation} />
-       <Post />
+       <Home />
     </View>
   );
 }
@@ -48,8 +48,8 @@ export default function TabMenu() {
       barStyle={{ backgroundColor: "#781713" }}
     >
       <Tab.Screen
-        name="Posts"
-        component={Posts}
+        name="Home"
+        component={Homes}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
