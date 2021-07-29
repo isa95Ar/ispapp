@@ -10,22 +10,19 @@ export default function Post() {
   const [page, setPage] = useState(1);
 
   const apiCall = async () => {
-
-    try{
-
-      const data = await fetch(`http://backend.institutopatagonico.edu.ar/api/posts?page=${page}&type=${valor}`,{
-         method: 'GET',
-         headers: {
+    try {
+      const data = await fetch(`http://backend.institutopatagonico.edu.ar/api/posts?page=${page}&type=${valor}`, {
+        method: 'GET',
+        headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          'Authorization' : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iYWNrZW5kLmluc3RpdHV0b3BhdGFnb25pY28uZWR1LmFyXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjA1NjU0ODAzLCJleHAiOjE2MzY3OTQ4MDMsIm5iZiI6MTYwNTY1NDgwMywianRpIjoiS2tMcjhMT25jdU1rYUdjQiIsInN1YiI6MTIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.1axegnJrk4QpQqp1wHUmYVIGSTUta1Zg5y3M1acWJMI"
-        }, 
+          'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iYWNrZW5kLmluc3RpdHV0b3BhdGFnb25pY28uZWR1LmFyXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjA1NjU0ODAzLCJleHAiOjE2MzY3OTQ4MDMsIm5iZiI6MTYwNTY1NDgwMywianRpIjoiS2tMcjhMT25jdU1rYUdjQiIsInN1YiI6MTIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.1axegnJrk4QpQqp1wHUmYVIGSTUta1Zg5y3M1acWJMI"
+        },
       });
-
       let response = await data.json();
       console.log(response)
       setList(response);
-    }catch(e){
+    } catch (e) {
       console.log(e);
     }
   }
@@ -34,6 +31,7 @@ export default function Post() {
       setPage(1)
     }
   }
+  
   useEffect(() => {
     apiCall();
   }, []);
@@ -48,16 +46,19 @@ export default function Post() {
     Pages();
   }, [page]);
   
+
+
   return (
+    
     <View>
-      <RNPickerSelect 
-            items={[
-                { label: 'Consigna', value: 'Consigna' },
-                { label: 'Tarea', value: 'Tarea' },
-                { label: 'Aviso', value: 'Aviso' },
-            ]}
-            onValueChange={(value) => setValor(value)}     
-        />
+      <RNPickerSelect
+        items={[
+          { label: 'Consigna', value: 'Consigna' },
+          { label: 'Tarea', value: 'Tarea' },
+          { label: 'Aviso', value: 'Aviso' },
+        ]}
+        onValueChange={(value) => setValor(value)}
+      />
       {list.map((l, i) => (
         <ListItem key={i} bottomDivider pad={30}>
           <Avatar source={{ uri: l.banner }} size="small" style={styles.avatar} />
@@ -73,10 +74,10 @@ export default function Post() {
           <ListItem.Chevron />
         </ListItem>
       ))}
-    <Button /*Implementar flex y una variable que salga fuera como el dropdown*/
-  title="ver mas"
-  /> 
-  <View style={styles.buttons}>
+      <Button 
+        title="ver mas"
+      />
+      <View style={styles.buttons}>
         <Button
           onPress={() => setPage(page - 1)}
           title="Anterior Página"
@@ -87,9 +88,7 @@ export default function Post() {
         />
       </View>
     </View>
-  
-  );
-
+     );
 }
 
 const styles = StyleSheet.create({

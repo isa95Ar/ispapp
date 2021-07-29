@@ -32,10 +32,12 @@ export default function Home() {
 
   }
 
+  /*Esta api no tira error ni nada, pero me crashea el expo, asi que no se que onda */
+  /*
   useEffect(() => {
        apiCall();
   },[]);
-  
+  */ 
 
 
   return (

@@ -75,14 +75,14 @@ export default function Login({ navigation }) {
     >
       <View style={styles.containerHeader}>
         <Avatar
-          size="xlarge"
+          size="large"
           rounded
           source={{
             uri:
               "https://cdn.discordapp.com/attachments/757361195425726585/773705725788553226/InstitutoLogo.png",
           }}
         />
-        <Text style={{ color: "white", fontWeight: "bold", fontSize: 35 }}>
+        <Text style={{ color: "white", fontWeight: "bold", fontSize: 30 }}>
           Iniciar Sesión
         </Text>
       </View>
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     height: "100%",
     width: "100%",
-    paddingTop: 50,
+    paddingTop: 25,
   },
   containerInputs: {
     flex: 2,
