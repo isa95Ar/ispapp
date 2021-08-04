@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import TabMenu from "./components/navigator/TabMenu";
-import CustomDrawer from "./components/navigator/CustomDrawer";
+import CustomDrawerContent from "./components/navigator/CustomDrawer";
 import Login from "./components/screens/login";
 import Welcome from "./components/screens/welcome";
 import { Provider } from "react-redux";
@@ -22,7 +22,7 @@ export default function App() {
           backBehavior="history"
           drawerPosition="right"
           initialRouteName="Login"
-          drawerContent={CustomDrawer}
+          drawerContent={props => <CustomDrawerContent {...props} />}
           drawerContentOptions={{
             activeTintColor: "#F57273",
             contentContainerStyle: {
@@ -38,7 +38,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Drawer.Screen
-            name="Welcome"
+            name="Bienvenida"
             component={Welcome}
             options={{ headerShown: false }}
           />
@@ -47,9 +47,7 @@ export default function App() {
             component={TabMenu}
             options={{ headerShown: false }}
           />
-          {/*<Drawer.Screen name="Calendario" component={CalendarioScreen} />
-                <Drawer.Screen name="Tareas" component={TareasScreen} />
-                <Drawer.Screen name="Notificaciones" component={NotificacionesScreen} />*/}
+         
         </Drawer.Navigator>
       </NavigationContainer>
     </Provider>

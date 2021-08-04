@@ -2,15 +2,18 @@
 import React from "react";
 import { StyleSheet, View,ImageBackground } from "react-native";
 import { Avatar, Button, Text } from "react-native-elements";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {logout} from '../../actions/user';
 
 export default function Welcome({ navigation }) {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const loggedOut = async () => {
         await AsyncStorage.removeItem("session")
         navigation.navigate("Login");
+        dispatch(logout());
   }
   
   return (

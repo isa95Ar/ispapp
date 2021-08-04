@@ -1,63 +1,82 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
-import { ListItem, Avatar } from "react-native-elements";
+import { StyleSheet, View, Text, Image, ScrollView, ActivityIndicator } from "react-native";
+import { Card, ListItem, Button, Icon, Badge } from "react-native-elements";
+import { useSelector, useDispatch } from "react-redux";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home() {
- 
 
-  
-  const [list,setList] = useState([]);
+
+  const user = useSelector((state) => state.user);
+  const [info, setInfo] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 
   const apiCall = async () => {
+    setLoading(true);
+    const token = await AsyncStorage.getItem("session");
+    try {
 
-    try{
-
-      const data = await fetch('http://backend.institutopatagonico.edu.ar/api/home',{
-         method: 'GET',
-         headers: {
+      const data = await fetch('https://backend.institutopatagonico.edu.ar/api/home', {
+        method: 'GET',
+        headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          'Authorization' : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iYWNrZW5kLmluc3RpdHV0b3BhdGFnb25pY28uZWR1LmFyXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjA1NjU0ODAzLCJleHAiOjE2MzY3OTQ4MDMsIm5iZiI6MTYwNTY1NDgwMywianRpIjoiS2tMcjhMT25jdU1rYUdjQiIsInN1YiI6MTIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.1axegnJrk4QpQqp1wHUmYVIGSTUta1Zg5y3M1acWJMI"
-        }, 
+          'Authorization': "Bearer " + token
+        },
       });
 
       let response = await data.json();
-      
-      setList(response.posts);
+      setInfo(response);
+      console.log(response);
+      //setList(response.posts);
+      setLoading(false);
 
-    }catch(e){
+    } catch (e) {
       console.log(e);
+      setLoading(false);
     }
 
   }
 
   /*Esta api no tira error ni nada, pero me crashea el expo, asi que no se que onda */
-  /*
+
   useEffect(() => {
-       apiCall();
-  },[]);
-  */ 
+    apiCall();
+  }, []);
+
 
 
   return (
     <View>
-      {list.map((l, i) => (
-        <ListItem key={i} bottomDivider pad={30}>
-          <Avatar
-          source={{ uri:  l.banner }} size="small" style={styles.avatar} />
-          <ListItem.Content >
-            <ListItem.Title>{l.title}</ListItem.Title>
-            <ListItem.Subtitle style={styles.ratingText}>
-              <Text style={{ color: "red" }}>{l.type}</Text>
-              <Text> en </Text>
-              <Text style={{ color: "red" }}>{l.career_id}</Text>
-            </ListItem.Subtitle>
-            <ListItem.Subtitle></ListItem.Subtitle>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-      ))}
+      {!loading ? <ScrollView>
+
+        <Card>
+          <Card.Title>Bienvenido {user.name}</Card.Title>
+          <Card.Divider />
+          <Card.Image source={{ uri: 'https://vinculotic.com/wp-content/uploads/2020/04/buenos-habitos-estudiantes-linea-01.jpg' }}>
+          </Card.Image>
+          <Card.Divider />
+          <Text style={{ marginBottom: 10 }}>
+            Aqui podras ver las ultimas actualizaciones de los docentes de {info.career ? info.career.name : ''}{` `}
+            y eventos de la institución.
+          </Text>
+        </Card>
+
+        <Card>
+          <Card.Title>Novedades de {info.career ? info.career.name : ''}</Card.Title>
+          <Card.Divider />
+          <View>
+            <Text>Publicaciones <Badge value={info.posts} status="primary" /> </Text>
+          </View>
+          <Card.Divider />
+          <View>
+            <Text>Eventos <Badge value={info.calendars} status="warning" /></Text>
+          </View>
+        </Card>
+      </ScrollView>
+        : <View style={{flex:1,justifyContent:'center',marginTop:'40%'}}><ActivityIndicator size="large" color="#0000ff" /></View>
+      }
     </View>
   );
 }
