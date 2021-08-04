@@ -20,7 +20,7 @@ export default function Post() {
         },
       });
       let response = await data.json();
-      console.log(response)
+      
       setList(response);
     } catch (e) {
       console.log(e);

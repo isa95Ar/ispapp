@@ -28,7 +28,7 @@ export default function Home() {
 
       let response = await data.json();
       setInfo(response);
-      console.log(response);
+      
       //setList(response.posts);
       setLoading(false);
 
