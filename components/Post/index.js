@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { SectionList } from "react-native";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, SafeAreaView } from "react-native";
 import { ListItem, Avatar, Button } from "react-native-elements";
 import RNPickerSelect from 'react-native-picker-select';
+import { ScrollView } from "react-native-gesture-handler";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Post() {
-  const [valor, setValor] = useState(["Aviso"]);
+  const [valor, setValor] = useState("Aviso");
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
 
   const apiCall = async () => {
     try {
+      const token = await AsyncStorage.getItem("session");
       const data = await fetch(`http://backend.institutopatagonico.edu.ar/api/posts?page=${page}&type=${valor}`, {
         method: 'GET',
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iYWNrZW5kLmluc3RpdHV0b3BhdGFnb25pY28uZWR1LmFyXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjA1NjU0ODAzLCJleHAiOjE2MzY3OTQ4MDMsIm5iZiI6MTYwNTY1NDgwMywianRpIjoiS2tMcjhMT25jdU1rYUdjQiIsInN1YiI6MTIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.1axegnJrk4QpQqp1wHUmYVIGSTUta1Zg5y3M1acWJMI"
+          'Authorization': `Bearer ${token}`
         },
       });
       let response = await data.json();
@@ -31,7 +34,7 @@ export default function Post() {
       setPage(1)
     }
   }
-  
+
   useEffect(() => {
     apiCall();
   }, []);
@@ -45,50 +48,56 @@ export default function Post() {
     apiCall();
     Pages();
   }, [page]);
-  
+
 
 
   return (
-    
+
     <View>
-      <RNPickerSelect
-        items={[
-          { label: 'Consigna', value: 'Consigna' },
-          { label: 'Tarea', value: 'Tarea' },
-          { label: 'Aviso', value: 'Aviso' },
-        ]}
-        onValueChange={(value) => setValor(value)}
-      />
-      {list.map((l, i) => (
-        <ListItem key={i} bottomDivider pad={30}>
-          <Avatar source={{ uri: l.banner }} size="small" style={styles.avatar} />
-          <ListItem.Content >
-            <ListItem.Title>{l.title}</ListItem.Title>
-            <ListItem.Subtitle style={styles.ratingText}>
-              <Text style={{ color: "red" }}>{l.type}</Text>
-              <Text> en </Text>
-              <Text style={{ color: "red" }}>{l.career_id}</Text>
-            </ListItem.Subtitle>
-            <ListItem.Subtitle></ListItem.Subtitle>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-      ))}
-      <Button 
-        title="ver mas"
-      />
-      <View style={styles.buttons}>
-        <Button
-          onPress={() => setPage(page - 1)}
-          title="Anterior Página"
-        />
-        <Button
-          onPress={() => setPage(page + 1)}
-          title="Siguiente Página"
-        />
-      </View>
+      <SafeAreaView style={styles.containerSafeArea}>
+        <ScrollView>
+          <RNPickerSelect
+            items={[
+              { label: 'Consigna', value: 'Consigna' },
+              { label: 'Tarea', value: 'Tarea' },
+              { label: 'Aviso', value: 'Aviso' },
+            ]}
+            placeholder={{
+              label: "Elija un tipo de Post",
+              value: null,
+            }}
+            onValueChange={(value) => setValor(value)}
+          />
+          {list.map((l, i) => (
+            <ListItem key={i} bottomDivider pad={30}>
+              <Avatar source={{ uri: l.banner }} size="small" style={styles.avatar} />
+              <ListItem.Content >
+                <ListItem.Title>{l.title}</ListItem.Title>
+                <ListItem.Subtitle style={styles.ratingText}>
+                  <Text style={{ color: "red" }}>{l.type}</Text>
+                  <Text> en </Text>
+                  <Text style={{ color: "red" }}>{l.career_id}</Text>
+                </ListItem.Subtitle>
+                <ListItem.Subtitle></ListItem.Subtitle>
+              </ListItem.Content>
+              <ListItem.Chevron />
+            </ListItem>
+          ))}
+          </ScrollView>
+      </SafeAreaView>
+          <View style={styles.buttons}>
+            <Button
+              onPress={() => setPage(page - 1)}
+              title="Anterior Página"
+            />
+            <Button
+              onPress={() => setPage(page + 1)}
+              title="Siguiente Página"
+            />
+          </View>
+          
     </View>
-     );
+  );
 }
 
 const styles = StyleSheet.create({
@@ -109,6 +118,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",
-    alignItems: "center",
+  },
+  containerSafeArea: {
+    height: "87%",
+    width: "100%"
   }
 });

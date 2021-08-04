@@ -18,11 +18,11 @@ function Homes({ navigation }) {
   );
 }
 
-function Profile({ navigation }) {
+function Post({ navigation }) {
   return (
     <View>
       <HeaderBar nav={navigation} />
-      <Text>Detalles de configuracion</Text>
+      <Posts />
     </View>
   );
 }
@@ -60,7 +60,7 @@ export default function TabMenu() {
       />
       <Tab.Screen
         name="Post"
-        component={Posts}
+        component={Post}
         options={{
           tabBarLabel: 'Publicaciones',
           tabBarIcon: ({ color }) => (

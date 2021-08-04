@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Image, ScrollView, ActivityIndicator } from "react-native";
+import { StyleSheet, View, Text, Image, ActivityIndicator, SafeAreaView } from "react-native";
 import { Card, ListItem, Button, Icon, Badge } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
+import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home() {
@@ -49,34 +50,39 @@ export default function Home() {
 
   return (
     <View>
-      {!loading ? <ScrollView>
+      
+        {!loading ? 
+        <SafeAreaView style={styles.containerSafeArea}>
+        <ScrollView>
 
-        <Card>
-          <Card.Title>Bienvenido {user.name}</Card.Title>
-          <Card.Divider />
-          <Card.Image source={{ uri: 'https://vinculotic.com/wp-content/uploads/2020/04/buenos-habitos-estudiantes-linea-01.jpg' }}>
-          </Card.Image>
-          <Card.Divider />
-          <Text style={{ marginBottom: 10 }}>
-            Aqui podras ver las ultimas actualizaciones de los docentes de {info.career ? info.career.name : ''}{` `}
-            y eventos de la institución.
-          </Text>
-        </Card>
+          <Card>
+            <Card.Title>Bienvenido {user.name}</Card.Title>
+            <Card.Divider />
+            <Card.Image source={{ uri: 'https://vinculotic.com/wp-content/uploads/2020/04/buenos-habitos-estudiantes-linea-01.jpg' }}>
+            </Card.Image>
+            <Card.Divider />
+            <Text style={{ marginBottom: 10 }}>
+              Aqui podras ver las ultimas actualizaciones de los docentes de {info.career ? info.career.name : ''}{` `}
+              y eventos de la institución.
+            </Text>
+          </Card>
 
-        <Card>
-          <Card.Title>Novedades de {info.career ? info.career.name : ''}</Card.Title>
-          <Card.Divider />
-          <View>
-            <Text>Publicaciones <Badge value={info.posts} status="primary" /> </Text>
-          </View>
-          <Card.Divider />
-          <View>
-            <Text>Eventos <Badge value={info.calendars} status="warning" /></Text>
-          </View>
-        </Card>
-      </ScrollView>
-        : <View style={{flex:1,justifyContent:'center',marginTop:'40%'}}><ActivityIndicator size="large" color="#0000ff" /></View>
-      }
+          <Card>
+            <Card.Title>Novedades de {info.career ? info.career.name : ''}</Card.Title>
+            <Card.Divider />
+            <View>
+              <Text>Publicaciones <Badge value={info.posts} status="primary" /> </Text>
+            </View>
+            <Card.Divider />
+            <View>
+              <Text>Eventos <Badge value={info.calendars} status="warning" /></Text>
+            </View>
+          </Card>
+        </ScrollView>
+        </SafeAreaView>
+          : <View style={{ flex: 1, justifyContent: 'center', marginTop: '40%' }}><ActivityIndicator size="large" color="#0000ff" /></View>
+        }
+      
     </View>
   );
 }
@@ -95,4 +101,8 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+  containerSafeArea: {
+    height: "90%",
+    width: "100%"
+  }
 });
