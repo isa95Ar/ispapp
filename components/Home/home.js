@@ -26,6 +26,7 @@ export default function Home() {
 
       let response = await data.json();
       setInfo(response);
+      
       //setList(response.posts);
       setLoading(false);
     } catch (e) {

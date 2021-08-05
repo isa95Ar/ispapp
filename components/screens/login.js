@@ -60,6 +60,7 @@ export default function Login({ navigation }) {
         }
       );
       let response = await data.json();
+      
       if (response.access_token !== undefined){
         await AsyncStorage.setItem("session", response.access_token);
         dispatch(updateUser(response.user));

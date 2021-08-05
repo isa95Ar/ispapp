@@ -26,6 +26,7 @@ export default function Post() {
         },
       });
       let response = await data.json();
+      
       setList(response);
     } catch (e) {
       console.log(e);
