@@ -88,8 +88,6 @@ export default function Post() {
 							/>
             </ListItem>
           ))}
-          </ScrollView>
-      </SafeAreaView>
           <View style={styles.buttons}>
             <Button
               onPress={() => setPage(page - 1)}
@@ -100,6 +98,8 @@ export default function Post() {
               title="Siguiente Página"
             />
           </View>
+          </ScrollView>
+      </SafeAreaView>
     </View>
   );
 }
@@ -116,9 +116,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",
+    alignContent: "flex-end",
+    backgroundColor: "blue"
   },
   containerSafeArea: {
-    height: "87%",
+    backgroundColor: "red",
+    height: "90%",
     width: "100%"
   }
 });
