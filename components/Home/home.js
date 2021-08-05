@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Image, ActivityIndicator, SafeAreaView } from "react-native";
-import { Card, ListItem, Button, Icon, Badge } from "react-native-elements";
-import { useSelector, useDispatch } from "react-redux";
+import { StyleSheet, View, Text, ActivityIndicator, SafeAreaView } from "react-native";
+import { Card, Badge } from "react-native-elements";
+import { useSelector } from "react-redux";
 import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home() {
 
-
   const user = useSelector((state) => state.user);
   const [info, setInfo] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   const apiCall = async () => {
     setLoading(true);
     const token = await AsyncStorage.getItem("session");
     try {
-
       const data = await fetch('https://backend.institutopatagonico.edu.ar/api/home', {
         method: 'GET',
         headers: {
@@ -29,44 +26,34 @@ export default function Home() {
 
       let response = await data.json();
       setInfo(response);
-      console.log(response);
       //setList(response.posts);
       setLoading(false);
-
     } catch (e) {
       console.log(e);
       setLoading(false);
     }
-
   }
 
   /*Esta api no tira error ni nada, pero me crashea el expo, asi que no se que onda */
-
   useEffect(() => {
     apiCall();
   }, []);
 
-
-
   return (
     <View>
-      
         {!loading ? 
         <SafeAreaView style={styles.containerSafeArea}>
         <ScrollView>
-
           <Card>
             <Card.Title>Bienvenido {user.name}</Card.Title>
             <Card.Divider />
-            <Card.Image source={{ uri: 'https://vinculotic.com/wp-content/uploads/2020/04/buenos-habitos-estudiantes-linea-01.jpg' }}>
-            </Card.Image>
+            <Card.Image source={{ uri: 'https://vinculotic.com/wp-content/uploads/2020/04/buenos-habitos-estudiantes-linea-01.jpg' }} />
             <Card.Divider />
             <Text style={{ marginBottom: 10 }}>
               Aqui podras ver las ultimas actualizaciones de los docentes de {info.career ? info.career.name : ''}{` `}
               y eventos de la institución.
             </Text>
           </Card>
-
           <Card>
             <Card.Title>Novedades de {info.career ? info.career.name : ''}</Card.Title>
             <Card.Divider />

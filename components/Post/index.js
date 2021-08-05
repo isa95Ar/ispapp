@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { SectionList } from "react-native";
-import { StyleSheet, View, Text, Image, SafeAreaView } from "react-native";
+import { StyleSheet, View, Text, SafeAreaView } from "react-native";
 import { ListItem, Avatar, Button } from "react-native-elements";
 import RNPickerSelect from 'react-native-picker-select';
 import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import ModalCard from "./ModalCard";
+
 export default function Post() {
   const [valor, setValor] = useState("Aviso");
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
+	const [modalVisible, setModalVisible] = useState(false);
+	const [modalData, setModalData] = useState({text: 'Texto texto descripción', title: 'Título', banner: {uri: ''}});
 
   const apiCall = async () => {
     try {
@@ -23,7 +26,6 @@ export default function Post() {
         },
       });
       let response = await data.json();
-      console.log(response)
       setList(response);
     } catch (e) {
       console.log(e);
@@ -49,12 +51,11 @@ export default function Post() {
     Pages();
   }, [page]);
 
-
-
   return (
 
     <View>
       <SafeAreaView style={styles.containerSafeArea}>
+				<ModalCard data={modalData} setVisible={setModalVisible} visible={modalVisible} />
         <ScrollView>
           <RNPickerSelect
             items={[
@@ -78,9 +79,13 @@ export default function Post() {
                   <Text> en </Text>
                   <Text style={{ color: "red" }}>{l.career_id}</Text>
                 </ListItem.Subtitle>
-                <ListItem.Subtitle></ListItem.Subtitle>
               </ListItem.Content>
-              <ListItem.Chevron />
+              <ListItem.Chevron 
+								onPress={() => {
+									setModalData(l);
+									setModalVisible(true);
+								}}
+							/>
             </ListItem>
           ))}
           </ScrollView>
@@ -95,18 +100,11 @@ export default function Post() {
               title="Siguiente Página"
             />
           </View>
-          
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "flex-start",
-    justifyContent: "center",
-  },
   ratingText: {
     paddingLeft: 0,
   },
