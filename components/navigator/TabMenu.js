@@ -22,7 +22,7 @@ function Post({ navigation }) {
   return (
     <View>
       <HeaderBar nav={navigation} />
-      <Posts />
+      <Posts nav={navigation} />
     </View>
   );
 }

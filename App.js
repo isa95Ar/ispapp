@@ -8,6 +8,7 @@ import Welcome from "./components/screens/welcome";
 import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import { createStore } from "redux";
+import DetalleScreen from './components/screens/Detalles';
 
 const Drawer = createDrawerNavigator();
 
@@ -44,6 +45,11 @@ export default function App() {
           <Drawer.Screen
             name="Home"
             component={TabMenu}
+            options={{ headerShown: false }}
+          />
+					<Drawer.Screen
+            name="Detalle"
+            component={DetalleScreen}
             options={{ headerShown: false }}
           />
         </Drawer.Navigator>

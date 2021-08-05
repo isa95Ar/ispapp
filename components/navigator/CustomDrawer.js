@@ -23,7 +23,7 @@ export default function CustomDrawerContent(props) {
 
 	const {state, ...rest} = props;
 	const newState = {...state};
-	newState.routes = newState.routes.filter(item => !['Bienvenida', 'Login' ].includes(item.name));
+	newState.routes = newState.routes.filter(item => !['Bienvenida', 'Login', 'Detalle' ].includes(item.name));
 
 	return (
 		<DrawerContentScrollView {...props} style={styles.drawContent}>

@@ -7,12 +7,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import ModalCard from "./ModalCard";
 
-export default function Post() {
+export default function Post( props ) {
   const [valor, setValor] = useState("Aviso");
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
 	const [modalVisible, setModalVisible] = useState(false);
-	const [modalData, setModalData] = useState({text: 'Texto texto descripción', title: 'Título', banner: {uri: ''}});
+	const [screenData, setScreenData] = useState({text: 'Texto texto descripción', title: 'Título', banner: ''});
 
   const apiCall = async () => {
     try {
@@ -55,7 +55,6 @@ export default function Post() {
 
     <View>
       <SafeAreaView style={styles.containerSafeArea}>
-				<ModalCard data={modalData} setVisible={setModalVisible} visible={modalVisible} />
         <ScrollView>
           <RNPickerSelect
             items={[
@@ -82,8 +81,8 @@ export default function Post() {
               </ListItem.Content>
               <ListItem.Chevron 
 								onPress={() => {
-									setModalData(l);
-									setModalVisible(true);
+									setScreenData(l);
+									props.nav.navigate('Detalle', l);
 								}}
 							/>
             </ListItem>
