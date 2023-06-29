@@ -13,7 +13,7 @@ const Drawer = createDrawerNavigator();
 
 export default function App() {
   const store = createStore(rootReducer);
-
+  console.log("her");
   return (
     <Provider store={store}>
       <NavigationContainer>
